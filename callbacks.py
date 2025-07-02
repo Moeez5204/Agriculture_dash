@@ -1,39 +1,41 @@
-from dash import Input, Output, html, dcc
-import plotly.express as px
+from dash import Input, Output, html
+from dashboard_tab import dashboard_tab
+from map_tab import map_tab
 from data_loader import load_pesticide_data, load_yield_data
-
+import plotly.express as px
+#Callbacks
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
-
+unique_years = sorted(yield_df["Year"].dropna().unique())
 def register_callbacks(app):
     @app.callback(
-        Output("graph-output", "children"),
+        Output("tab-content", "children"),
+        Input("tabs", "value")
+    )
+    def switch_tabs(tab_name):
+        if tab_name == "dashboard-tab":
+            return dashboard_tab
+        elif tab_name == "map-tab":
+            return map_tab
+    @app.callback(
+        Output("graph-output", "figure"),
         Input("view-selector", "value"),
         Input("year-selector", "value")
     )
-    def update_graph(view, selected_year):
+    def update_graph(view, year):
         if view == "pesticide":
-            return [
-                dcc.Graph(figure=px.line(
-                    pesticide_df,
-                    x="YEAR",
-                    y=["Quantity (M.T) Imports", "Quantity (M.T) Production", "Quantity (M.T) Total"],
-                    title="Pesticide Imports, Production & Total"
-                )),
-                dcc.Graph(figure=px.bar(
-                    pesticide_df,
-                    x="YEAR",
-                    y="Value (Million Rs.)",
-                    title="Pesticide Value in Rs"
-                ))
-            ]
-        elif view == "yield":
-            filtered = yield_df[yield_df["Year"] == selected_year]
-            return dcc.Graph(figure=px.bar(
-                filtered.sort_values("Yield", ascending=False),
+            fig = px.line(
+                pesticide_df,
+                x="YEAR",
+                y="Quantity (M.T) Total",
+                title="Pesticide Consumption in Pakistan"
+            )
+        else:
+            filtered = yield_df[yield_df["Year"] == year]
+            fig = px.bar(
+                filtered,
                 x="District",
                 y="Yield",
-                title=f"Wheat Yield by District – {selected_year}",
-                labels={"Yield": "Yield"}
-            ))
-        return html.Div("No data available.")
+                title=f"Wheat Yield by District ({year})"
+            )
+        return fig

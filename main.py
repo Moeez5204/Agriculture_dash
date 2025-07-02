@@ -3,6 +3,9 @@ import dash_bootstrap_components as dbc
 from layout import layout
 from callbacks import register_callbacks
 
+#main
+
+
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.title = "Wheat & Pesticide Dashboard"
 app.layout = layout
