@@ -7,6 +7,7 @@ import plotly.express as px
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
 unique_years = sorted(yield_df["Year"].dropna().unique())
+
 def register_callbacks(app):
     @app.callback(
         Output("tab-content", "children"),

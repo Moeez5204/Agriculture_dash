@@ -6,7 +6,7 @@ from dash import html, dcc
 import plotly.express as px
 
 # Load district coordinates from CSV
-coord_df = pd.read_csv("Punjab_District_Coord.csv") #Read Csv Data
+coord_df = pd.read_csv("data/Punjab_District_Coord.csv")
 
 # Create a mapbox scatter plot with district markers
 fig = px.scatter_mapbox( #Places graph ontop of map to show cities

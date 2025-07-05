@@ -14,7 +14,7 @@ def clean_numeric_column(df, column_name):
 
 #data_loader
 def load_pesticide_data():
-    df = pd.read_csv("Pesticide Consumption Pakistan 2008-2018.csv")
+    df = pd.read_csv("data/Pesticide Consumption Pakistan 2008-2018.csv")
     df.columns = df.columns.str.strip()
 
     # Clean quantity column: remove commas and convert to numeric
@@ -25,7 +25,7 @@ def load_pesticide_data():
     return df
 
 def load_yield_data():
-    df = pd.read_csv("Wheat Yield by Districts Punjab.csv")
+    df = pd.read_csv("data/Wheat Yield by Districts Punjab.csv")
     df.columns = df.columns.str.strip()
 
     # Rename the first column to "District"
