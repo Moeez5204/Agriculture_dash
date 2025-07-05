@@ -1,3 +1,4 @@
+import pandas as pd
 from dash import Input, Output, html
 from dashboard_tab import dashboard_tab
 from map_tab import map_tab
@@ -7,7 +8,7 @@ import plotly.express as px
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
 unique_years = sorted(yield_df["Year"].dropna().unique())
-
+#forecast_df = pd.read_csv("outputs/Punjab_Yield_Forecast.csv")
 def register_callbacks(app):
     @app.callback(
         Output("tab-content", "children"),
