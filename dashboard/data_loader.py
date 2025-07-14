@@ -48,3 +48,9 @@ def load_yield_data():
 
     return df_long
 
+def compute_yield_volatility(yield_df):
+    volatility = yield_df.groupby('District')['Yield'].std().reset_index()
+    volatility.columns = ['District', 'Yield_StdDev']
+    return volatility
+
+

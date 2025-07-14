@@ -6,6 +6,10 @@ from dash import html, dcc
 forecast_df = pd.read_csv('/Users/abdul-moeez/PycharmProjects/Dashboard/outputs/Punjab_Yield_Forecast.csv')
 actual_df = pd.read_csv('/Users/abdul-moeez/PycharmProjects/Dashboard/Data/Wheat_Yield_Punjab_2020_2023.csv')
 
+# Load additional note from a file
+with open("/Users/abdul-moeez/PycharmProjects/Dashboard/Data/Data_prediction", "r") as file:
+    note_text = file.read()
+
 # Prep actual data
 actual_long = actual_df.melt(
     id_vars=actual_df.columns[0],
@@ -59,5 +63,10 @@ fig.update_traces(mode="lines+markers")
 # Layout
 prediction_tab = html.Div([
     html.H3("Yield Prediction vs Actual Data"),
-    dcc.Graph(figure=fig)
+    dcc.Graph(figure=fig),
+    html.P(
+        "Note: Forecasts are based on smoothed historical data and may not account for extreme weather or policy changes."),
+    html.Hr(style={"marginTop": "10px", "marginBottom": "20px", "borderColor": "#ccc"}),
+    html.P(note_text, style={"marginTop": "10px", "color": "#444"})
+
 ])

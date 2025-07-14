@@ -8,7 +8,6 @@ import plotly.express as px
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
 unique_years = sorted(yield_df["Year"].dropna().unique())
-#forecast_df = pd.read_csv("outputs/Punjab_Yield_Forecast.csv")
 def register_callbacks(app):
     @app.callback(
         Output("tab-content", "children"),
