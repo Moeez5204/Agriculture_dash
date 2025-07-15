@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html, dcc
-from prediciton_tab import *
-#layout
+from prediction_tab import prediction_tab
+from heatmap_tab import heatmap_tab  # Add this import
 
 layout = dbc.Container([
     html.H2("Pakistan Wheat & Pesticide Dashboard", className="text-center my-4"),
@@ -9,8 +9,8 @@ layout = dbc.Container([
     dcc.Tabs(id="tabs", value="dashboard-tab", children=[
         dcc.Tab(label="Dashboard", value="dashboard-tab"),
         dcc.Tab(label="Punjab Yield Map", value="map-tab"),
-        dcc.Tab(label='Prediction', children=[prediction_tab])  # 👈 Add this line
-
+        dcc.Tab(label="Yield Heatmap", value="heatmap-tab"),  # Add this line
+        dcc.Tab(label="Prediction", value="prediction-tab"),
     ]),
 
     html.Div(id="tab-content")  # placeholder for dynamic tab content

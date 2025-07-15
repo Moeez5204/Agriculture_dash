@@ -2,12 +2,16 @@ import pandas as pd
 from dash import Input, Output, html
 from dashboard_tab import dashboard_tab
 from map_tab import map_tab
+from heatmap_tab import heatmap_tab  # Add this import
 from data_loader import load_pesticide_data, load_yield_data
 import plotly.express as px
-#Callbacks
+from prediction_tab import prediction_tab
+
+# Callbacks
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
 unique_years = sorted(yield_df["Year"].dropna().unique())
+
 def register_callbacks(app):
     @app.callback(
         Output("tab-content", "children"),
@@ -18,6 +22,11 @@ def register_callbacks(app):
             return dashboard_tab
         elif tab_name == "map-tab":
             return map_tab
+        elif tab_name == "heatmap-tab":  # Add this condition
+            return heatmap_tab
+        elif tab_name == "prediction-tab":
+            return prediction_tab
+            
     @app.callback(
         Output("graph-output", "figure"),
         Input("view-selector", "value"),
