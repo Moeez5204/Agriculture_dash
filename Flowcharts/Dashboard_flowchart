@@ -1,0 +1,19 @@
+[Start]
+  |
+  [Import Libraries: dash, dcc, dash_bootstrap_components, data_loader]
+  |
+  [Load Data: pesticide_df = load_pesticide_data(), yield_df = load_yield_data()]
+  |
+  [Get Unique Years: unique_years = sorted(yield_df["Year"].dropna().unique())]
+  |
+  [Define Layout: dashboard_tab]
+    |
+    [Create Row 1]
+      |--> [Column 1: dcc.Dropdown for view-selector (Pesticide/Yield)]
+      |--> [Column 2: dcc.Dropdown for year-selector (unique_years)]
+    |
+    [Add Break: html.Br()]
+    |
+    [Add Graph: dcc.Graph(id="graph-output")]
+  |
+[End]

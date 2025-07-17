@@ -1,0 +1,35 @@
+[Start]
+  |
+  [Import Libraries: dash, dcc, Input, Output, callback, plotly.express, data_loader]
+  |
+  [Prepare Data: coord_df, vol_df = prepare_volatility_data()]
+  |
+  [Get Unique Years: available_years = sorted(vol_df['Year'].unique())]
+  |
+  [Define Layout: map_tab]
+    |
+    [Add Header: html.H4("Punjab Wheat Yield Volatility by Year")]
+    |
+    [Create Year Selector Div]
+      |--> [Label: "Select Year:"]
+      |--> [dcc.Dropdown for year-selector (available_years)]
+    |
+    [Add Map Graph: dcc.Graph(id="district-map")]
+    |
+    [Add Horizontal Rule: html.Hr()]
+    |
+    [Add Volatility Categories: html.Div(id='volatility-categories')]
+  |
+  [Define Callback: update_map(selected_year)]
+    |
+    [Filter Data: year_data = coord_df[coord_df['Year'] == selected_year]]
+    |
+    [Create Map Figure: px.scatter_mapbox with lat, lon, hover data, color]
+    |
+    [Customize Map: update_traces, update_layout]
+    |
+    [Prepare Volatility Categories: low, med, high districts]
+    |
+    [Return: fig, categories_div]
+  |
+[End]

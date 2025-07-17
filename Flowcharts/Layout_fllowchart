@@ -1,0 +1,12 @@
+[Start]
+  |
+  [Import Libraries: dash_bootstrap_components, dash, dcc, other tabs]
+  |
+  [Define Layout: layout]
+    |
+    [Add Container: dbc.Container]
+      |--> [Add Header: html.H2("Pakistan Wheat & Pesticide Dashboard")]
+      |--> [Add Tabs: dcc.Tabs with Dashboard, Punjab Yield Map, Yield Heatmap, Prediction]
+      |--> [Add Content Placeholder: html.Div(id="tab-content")]
+  |
+[End]

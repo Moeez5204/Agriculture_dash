@@ -1,0 +1,22 @@
+[Start]
+  |
+  [Import Libraries: pandas, dash, plotly.express, data_loader, other tabs]
+  |
+  [Load Data: pesticide_df, yield_df, unique_years]
+  |
+  [Define Function: register_callbacks(app)]
+    |
+    [Callback 1: switch_tabs(tab_name)]
+      |--> [If tab_name == "dashboard-tab": return dashboard_tab]
+      |--> [If tab_name == "map-tab": return map_tab]
+      |--> [If tab_name == "heatmap-tab": return heatmap_tab]
+      |--> [If tab_name == "prediction-tab": return prediction_tab]
+    |
+    [Callback 2: update_graph(view, year)]
+      |--> [If view == "pesticide": px.line with pesticide_df]
+      |--> [Else: px.bar with filtered yield_df]
+      |--> [Return: fig]
+    |
+    [Register heatmap_callbacks: register_heatmap_callbacks(app)]
+  |
+[End]

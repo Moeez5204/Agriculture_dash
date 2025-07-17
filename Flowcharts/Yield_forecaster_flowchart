@@ -1,0 +1,25 @@
+[Start]
+  |
+  [Import Libraries: os, sys, pandas, Prophet]
+  |
+  [Add Path: sys.path.append for data_loader]
+  |
+  [Change Directory: os.chdir to project root]
+  |
+  [Define OUTPUT_PATH: Path("outputs/Punjab_Yield_Forecast.csv")]
+  |
+  [Define Function: forecast_punjab_yield()]
+    |--> [Load Data: df = load_yield_data()]
+    |--> [Group by Year: year_avg]
+    |--> [Prepare for Prophet: rename columns, clean ds]
+    |--> [Fit Model: Prophet()]
+    |--> [Forecast: future dataframe, predict]
+    |--> [Clean Output: select columns, rename]
+    |--> [Save to CSV: OUTPUT_PATH]
+    |--> [Return result]
+  |
+  [If __name__ == "__main__":]
+    |--> [Call forecast_punjab_yield()]
+    |--> [Print tail and save path]
+  |
+[End]

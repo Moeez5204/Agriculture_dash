@@ -1,0 +1,44 @@
+[Start]
+  |
+  [Import Libraries: pandas]
+  |
+  [Define Function: clean_numeric_column(df, column_name)]
+    |--> [Convert to string, remove commas, strip, convert to numeric]
+    |--> [Return df]
+  |
+  [Define Function: load_pesticide_data()]
+    |--> [Read CSV: Pesticide Consumption Pakistan 2008-2018.csv]
+    |--> [Clean columns]
+    |--> [Clean Quantity column]
+    |--> [Drop NA in Quantity]
+    |--> [Return df]
+  |
+  [Define Function: load_yield_data()]
+    |--> [Read CSV: Wheat Yield by Districts Punjab.csv]
+    |--> [Rename first column to District]
+    |--> [Melt to long format]
+    |--> [Clean Yield column]
+    |--> [Convert Year to numeric]
+    |--> [Drop NA in Yield]
+    |--> [Return df]
+  |
+  [Define Function: compute_yearly_volatility(df, window)]
+    |--> [Sort by District, Year]
+    |--> [Compute rolling std dev]
+    |--> [Return vol_df]
+  |
+  [Define Function: categorize_volatility(df)]
+    |--> [Calculate yearly percentiles]
+    |--> [Merge percentiles]
+    |--> [Categorize Volatility_Level]
+    |--> [Drop temporary columns]
+    |--> [Return df]
+  |
+  [Define Function: prepare_volatility_data()]
+    |--> [Load yield_df]
+    |--> [Compute volatility]
+    |--> [Categorize volatility]
+    |--> [Merge with coordinates]
+    |--> [Return coord_df, vol_df]
+  |
+[End]

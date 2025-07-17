@@ -1,0 +1,35 @@
+[Start]
+  |
+  [Import Libraries: plotly.express, dash, dcc, dash_bootstrap_components, data_loader]
+  |
+  [Load Data: yield_df, coord_df, vol_df = prepare_volatility_data()]
+  |
+  [Prepare Heatmap Data: prepare_heatmap_data()]
+    |--> [Pivot yield_df to yield_heatmap]
+    |--> [Pivot vol_df to vol_heatmap]
+    |--> [Normalize yield_heatmap to yield_normalized]
+    |--> [Return dictionary]
+  |
+  [Define Layout: heatmap_tab]
+    |
+    [Add Header: html.H4("Punjab Wheat Yield Patterns")]
+    |
+    [Create Row for Selectors]
+      |--> [Column 1: dbc.Select for heatmap-metric (yield_raw, yield_normalized, volatility)]
+      |--> [Column 2: dbc.Select for color-scale (Viridis, Plasma, RdYlGn)]
+    |
+    [Add Card with Graph: dcc.Graph(id="heatmap-graph")]
+    |
+    [Add Summary: html.Div(id="heatmap-summary")]
+  |
+  [Define Callback: update_heatmap(metric, color_scale)]
+    |
+    [Select Data: data = heatmap_data[metric]]
+    |
+    [Create Heatmap: px.imshow with data, labels, color_scale]
+    |
+    [Update Layout: xaxis_title, yaxis_title, colorbar]
+    |
+    [Return: fig]
+  |
+[End]
