@@ -2,14 +2,14 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 from data_loader import load_pesticide_data, load_yield_data
 
-#Dashboardz
-
+#load data
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
 unique_years = sorted(yield_df["Year"].dropna().unique())
 
+#define layout
 dashboard_tab = dbc.Container([
-    dbc.Row([
+    dbc.Row([         # First column: dropdown to select between pesticide and yield view
         dbc.Col([
             dcc.Dropdown(
                 id="view-selector",
@@ -21,7 +21,7 @@ dashboard_tab = dbc.Container([
                 clearable=False
             )
         ], width=6),
-        dbc.Col([
+        dbc.Col([         # Second column: dropdown to select year (only used when viewing yield)
             dcc.Dropdown(
                 id="year-selector",
                 options=[{"label": y, "value": y} for y in unique_years],
@@ -30,6 +30,6 @@ dashboard_tab = dbc.Container([
             )
         ], width=6)
     ]),
-    html.Br(),
+    html.Br(),#Line break for spacing
     dcc.Graph(id="graph-output")
 ])

@@ -7,18 +7,18 @@ from data_loader import load_pesticide_data, load_yield_data
 import plotly.express as px
 from prediction_tab import prediction_tab
 
-# Callbacks
+# Load datatsets
 pesticide_df = load_pesticide_data()
 yield_df = load_yield_data()
 unique_years = sorted(yield_df["Year"].dropna().unique())
 
 
-def register_callbacks(app):
+def register_callbacks(app): #Register all callbacks for the dash app
     @app.callback(
         Output("tab-content", "children"),
-        Input("tabs", "value")
+        Input("tabs", "value") #updataing main conent area when tab is clicked
     )
-    def switch_tabs(tab_name):
+    def switch_tabs(tab_name): #switch tabs
         if tab_name == "dashboard-tab":
             return dashboard_tab
         elif tab_name == "map-tab":
@@ -28,12 +28,12 @@ def register_callbacks(app):
         elif tab_name == "prediction-tab":
             return prediction_tab
 
-    @app.callback(
+    @app.callback( #Updates Graphs
         Output("graph-output", "figure"),
         Input("view-selector", "value"),
         Input("year-selector", "value")
     )
-    def update_graph(view, year):
+    def update_graph(view, year):     # Line chart for national pesticide consumption
         if view == "pesticide":
             fig = px.line(
                 pesticide_df,
@@ -41,7 +41,7 @@ def register_callbacks(app):
                 y="Quantity (M.T) Total",
                 title="Pesticide Consumption in Pakistan"
             )
-        else:
+        else:             # Bar chart of wheat yield by district for selected year
             filtered = yield_df[yield_df["Year"] == year]
             fig = px.bar(
                 filtered,

@@ -3,7 +3,7 @@ from dash import html, dcc
 from prediction_tab import prediction_tab
 from heatmap_tab import heatmap_tab  # Add this import
 
-layout = dbc.Container([
+layout = dbc.Container([ #layout for the dash app
     html.H2("Pakistan Wheat & Pesticide Dashboard", className="text-center my-4"),
 
     dcc.Tabs(id="tabs", value="dashboard-tab", children=[
